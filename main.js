@@ -17,7 +17,8 @@ class ThreeDScene {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(this.renderer.domElement);
 
-        this.camera.position.set(0, 1, 5);
+        this.camera.position.set(0, 5, 10);
+        this.camera.lookAt(0, 0, 0);
         this.move = { forward: false, backward: false, left: false, right: false };
     }
 
@@ -92,10 +93,22 @@ class ThreeDScene {
 
     moveCharacter() {
         const speed = 0.05;
-        if (this.move.forward) this.character.position.z -= speed;
-        if (this.move.backward) this.character.position.z += speed;
-        if (this.move.left) this.character.position.x -= speed;
-        if (this.move.right) this.character.position.x += speed;
+        let direction = new THREE.Vector3();
+
+        if (this.move.forward) direction.z -= speed;
+        if (this.move.backward) direction.z += speed;
+        if (this.move.left) direction.x -= speed;
+        if (this.move.right) direction.x += speed;
+
+        // キャラクターを移動させる
+        this.character.position.add(direction);
+
+        // キャラクターの向きを更新する
+        if (direction.length() > 0) {
+            direction.normalize(); // 向きの方向ベクトルを正規化
+            const targetPosition = this.character.position.clone().add(direction);
+            this.character.lookAt(targetPosition); // キャラクターが移動方向を向く
+        }
     }
 }
 

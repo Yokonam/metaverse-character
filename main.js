@@ -38,7 +38,7 @@ class ThreeDScene {
             this.scene.add(this.character);
             this.character.position.set(0, -1, 0);
             this.character.scale.set(10, 10, 10);
-            console.log(this.character); // Debugging purposes
+            console.log(this.character);
         });
     }
 

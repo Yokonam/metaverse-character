@@ -33,12 +33,11 @@ class ThreeDScene {
 
     loadCharacter() {
         const loader = new GLTFLoader();
-        loader.load('/apple.glb', (gltf) => {
+        loader.load('/character.glb', (gltf) => {
             this.character = gltf.scene;
             this.scene.add(this.character);
             this.character.position.set(0, -1, 0);
-            this.character.scale.set(10, 10, 10);
-            console.log(this.character);
+            this.character.scale.set(0.1, 0.1, 0.1);
         });
     }
 
